@@ -1,62 +1,114 @@
 # VLM-parking-labeling-multiPics
 
-本项目用于对比评估多种大视域多模态模型（VLM）在停车场场景下的目标检测与 OCR 标注任务能力。
+用于对比多模态模型（Doubao Seed 1.8、Seed 2.0 Pro、Qwen 系列）在停车场目标检测/框选任务上的效果，并输出：
 
-## 核心特性
-- **多模型支持**：支持 Doubao Seed 1.8、Seed 2.0 Pro、Qwen-VL-Max、Qwen3-VL 等主流模型。
-- **自动化测试流程**：全自动扫描本地图片（00001~00020.jpg）及对应的 JSON 标注。
-- **高度并发**：支持多线程并发调用 API，极大缩短评测耗时。
-- **坐标修正技术**：针对 Qwen3-VL 等模型的等比例归一化特性，内置了坐标自动缩放与对齐算法，消除标注漂移。
-- **全维度指标统计**：自动计算 Precision、Recall、IoU、TP/FP/FN、耗时（Latency）及 Token 消耗。
-- **可视化输出**：生成预测框与 GroundTruth 对比的彩色标注图及 bbox 详表。
+- 预测框可视化对比图
+- bbox 文本结果
+- CSV 汇总（包含 Precision、Recall、IoU、推理耗时、Tokens 等）
+- 实验结论报告（docs）
 
 ## 目录结构
+
 ```
 VLM-parking-labeling-multiPics/
-├── test_prompt_comparison.py   # 主评测脚本（支持多模型、多线程并发）
-├── runners/                    # 模型 API 调用适配器
-│   ├── seed18_runner.py        #   Doubao Seed 1.8
-│   ├── seed20_runner.py        #   Doubao Seed 2.0 Pro
-│   └── qwen_runner.py          #   Qwen-VL 系列（含 Qwen3）
-├── prompts/                    # 评测使用的 Prompt 模板
-│   ├── prompt优化v3.md          #   针对停车位编号优化的版本
-│   └── prompt原始.md            #   基础版本
+├── compare.py                  # 旧版主脚本（seed-1.8 vs Qwen3 对比）
+├── test_prompt_comparison.py   # 新版多模型×多提示词对比测试脚本
+├── runners/                    # 模型推理 Runner
+│   ├── seed18_runner.py        #   Doubao Seed 1.8 Runner
+│   ├── seed20_runner.py        #   Doubao Seed 2.0 Pro Runner
+│   └── qwen_runner.py          #   Qwen-VL 系列 (含 Qwen3)
+├── prompts/                    # 提示词文件
+│   ├── prompt优化v3.md          #   针对停车位编号优化的提示词 (最新)
+│   ├── prompt优化.md           #   优化后的提示词
+│   └── prompt原始.md           #   原始提示词
 ├── data/
-│   ├── images/                 # 测试图片 (00001.jpg ~ 00020.jpg)
-│   └── annotations/            # JSON 标注文件 (00001.json ~ 00020.json)
+│   ├── annotations/            # JSON 标注 (00001~00020.json)
+│   └── images/                 # 本地图片 (00001~00020.jpg)
 ├── outputs/
-│   ├── csv/                    # 评测指标 CSV 汇总
-│   ├── bboxes/                 # 详细的 bbox 坐标与 IoU 记录
-│   └── visualizations/         # 结果可视化对比图
-└── docs/                       # 深度评测总结报告
+│   ├── csv/                    # CSV 汇总结果
+│   ├── bboxes/                 # 详细框坐标 txt
+│   └── visualizations/         # 可视化对比图
+├── docs/                       # 实验对比报告/结论
+├── .env_example                # 环境变量示例
+├── .env                        # 环境变量（git ignored）
+└── env                         # 环境变量（git ignored）
 ```
 
 ## 环境准备
+
+### Python 版本
+
+建议使用 **Python 3.9+**。
+
 ### 安装依赖
+
 ```bash
 pip install requests pillow openai volcengine-sdk-ark-runtime dashscope python-dotenv
 ```
 
-### 配置 API Key
-在 `.env` 文件中配置：
+## 配置 API Key
+
+在项目根目录创建 `.env` 文件（可参考 `.env_example`）：
+
 ```bash
-ARK_API_KEY=your_ark_key
-DASHSCOPE_API_KEY=your_dashscope_key
-# 各模型具体的 Endpoint ID...
+ARK_API_KEY=YOUR_ARK_API_KEY
+DASHSCOPE_API_KEY=YOUR_DASHSCOPE_API_KEY
+
+# 可选：为不同模型指定独立的 API Key 和 Endpoint
+SEED18_API_KEY=YOUR_SEED18_API_KEY
+SEED18_EP=ep-xxxx
+SEED20_API_KEY=YOUR_SEED20_API_KEY
+SEED20_EP=ep-xxxx
 ```
 
-## 快速开始
-**对比 4 个模型在特定 Prompt 下的表现（每张图跑 3 次，5 线程并发）：**
+## 运行
+
+### 1. 多模型 × 多提示词对比测试（推荐）
+
+使用 `test_prompt_comparison.py`，支持多模型（Seed / Qwen3）的高性能并行评测。
+
+#### 基本用法
+
+```bash
+python3 test_prompt_comparison.py
+```
+
+默认行为：测试全部模型 × 全部提示词 × 全部图片，并发 5 线程。
+
+#### 命令行参数
+
+| 参数 | 说明 | 默认值 |
+|------|------|--------|
+| `--models` | 要测试的模型 | `seed1.8 seed2.0-pro qwen-vl-max qwen3-vl` |
+| `--prompts` | 要测试的提示词 | `prompt优化v3` 等 |
+| `--runs` | 每个组合的测试次数 | `3` |
+| `--max-concurrent` | 最大并发线程数 | `5` |
+| `--images` | 指定测试图片文件名 | 全部图片 (00001~00020) |
+
+#### 使用示例
+
+**对比 4 个模型，每组跑 3 次，5 线程并发：**
+
 ```bash
 python3 test_prompt_comparison.py \
   --models seed1.8 seed2.0-pro qwen-vl-max qwen3-vl \
-  --prompts "prompt优化v3" \
+  --prompts prompt优化v3 \
   --runs 3 \
   --max-concurrent 5
 ```
 
-## 坐标漂移修正说明 (Important)
-本项目在开发过程中发现 Qwen3-VL 的坐标输出存在特殊的归一化逻辑（基于图片长边的 1000 分度值），已在 `test_prompt_comparison.py` 的 `adjust_bboxes` 函数中进行了针对性修正，确保输出图片和指标重算的准确性。
+## 坐标修正说明 (Crucial)
+针对 Qwen3-VL 的输出框漂移问题，由于其特殊的 0-1000 长边归一化逻辑，解析代码在 `test_prompt_comparison.py:adjust_bboxes` 中进行了等比例映射修正，确保了即使在长方形图片上也能正确对齐标注框。
 
-## 许可证
-MIT License
+## 评估指标
+
+| 指标 | 说明 |
+|------|------|
+| Precision | 预测框中正确的比例（TP / 预测总数） |
+| Recall | 真实框中被检出的比例（TP / GT 总数） |
+| IoU | 匹配框对的平均交并比 (阈值 0.5) |
+| FP / FN | 错标数与漏标数 |
+
+## 报告
+
+实验对比结论保存在 `docs/` 下，涵盖了 qwen3-vl 解析修正前后的数据对比。
