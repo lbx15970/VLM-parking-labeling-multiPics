@@ -84,7 +84,7 @@ python3 test_prompt_comparison.py
 
 | 参数 | 说明 | 默认值 |
 |------|------|--------|
-| `--models` | 要测试的模型 | 全部：`seed1.8 seed2.0-pro qwen-vl-max qwen3-vl` |
+| `--models` | 要测试的模型 | `seed1.8 seed2.0-pro qwen-vl-max qwen3-vl qwen3.5-plus` |
 | `--prompts` | 要测试的提示词 | 全部：`prompt优化v3` 等 |
 | `--runs` | 每个组合的测试次数 | `5` |
 | `--max-concurrent` | 最大并发线程数 | `5` |

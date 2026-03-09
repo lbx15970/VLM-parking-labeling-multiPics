@@ -52,12 +52,18 @@ MODELS = {
         "model_id": "qwen-vl-max",
         "description": "通义千问 Qwen VL Max",
     },
+    "qwen3.5-plus": {
+        "name": "Qwen3.5-Plus",
+        "model_id": "qwen3.5-plus",
+        "description": "通义千问 Qwen 3.5 Plus",
+    },
 }
 
 # ------------ 提示词配置 ------------
 PROMPTS = {
     "prompt优化": os.path.join(script_dir, 'prompts', 'prompt优化.md'),
     "prompt优化v3": os.path.join(script_dir, 'prompts', 'prompt优化v3.md'),
+    "prompt优化v4": os.path.join(script_dir, 'prompts', 'prompt优化v4.md'),
     # "prompt优化_v2": os.path.join(script_dir, 'prompts', 'prompt优化_v2.md'),
     "prompt_原始": os.path.join(script_dir, 'prompts', 'prompt原始.md'),
 }
@@ -179,6 +185,15 @@ def build_runner(model_key, model_config, args):
             raise RuntimeError("缺少 qwen-vl-max 的 API Key (DASHSCOPE_API_KEY)")
         model_id = model_config["model_id"]
         return QwenRunner(api_key=api_key, model_id=model_id, enable_thinking=False)
+    if model_key == "qwen3.5-plus":
+        api_key = _pick_first(
+            args.qwen_api_key,
+            os.getenv("DASHSCOPE_API_KEY", "").strip()
+        )
+        if not api_key:
+            raise RuntimeError("缺少 qwen3.5-plus 的 API Key (DASHSCOPE_API_KEY)")
+        model_id = model_config["model_id"]
+        return QwenRunner(api_key=api_key, model_id=model_id, enable_thinking=False)
     raise RuntimeError(f"未知模型: {model_key}")
 
 
@@ -200,6 +215,10 @@ def resolve_model_display(model_key, model_config, args):
             model_config["model_id"]
         )
     if model_key == "qwen3-vl":
+        return model_config["model_id"]
+    if model_key == "qwen-vl-max":
+        return model_config["model_id"]
+    if model_key == "qwen3.5-plus":
         return model_config["model_id"]
     return model_config["model_id"]
 
@@ -289,33 +308,64 @@ def extract_bboxes(model_output):
     
     return results
 
-def adjust_bboxes(bboxes, image_width, image_height):
+def adjust_bboxes(bboxes, image_width, image_height, model_key=""):
     adjusted = []
+    # Qwen 系列模型的 key
+    qwen_models = ['qwen3-vl', 'qwen3.5-plus', 'qwen-vl-max']
+    
+    # 针对 Qwen 横图的预处理：统计越界比例，决定是否全局强制按 Height 归一化
+    force_h_normalization = False
+    if model_key in qwen_models and image_width > image_height:
+        total_count = len(bboxes)
+        overflow_count = 0
+        for item in bboxes:
+            # 检查原始坐标是否超过 1000 (即按 W 归一化会越界)
+            if max(item['bbox'][0], item['bbox'][2]) > 1000:
+                overflow_count += 1
+        
+        # 如果越界比例超过 30%，则判定整个 run 的 x 轴基准异常 (基于 Height)
+        if total_count > 0 and (overflow_count / total_count > 0.3):
+            force_h_normalization = True
+    
     for item in bboxes:
         bbox = item['bbox']
         x1, y1, x2, y2 = bbox
         
+        # 1. 0-1.0 归一化 (Doubao Seed 等)
         if max(x1, y1, x2, y2) <= 1.0:
             x1 = int(x1 * image_width)
             y1 = int(y1 * image_height)
             x2 = int(x2 * image_width)
             y2 = int(y2 * image_height)
+            
+        # 2. Qwen 系列特殊处理 (0-1000, 长边归一化, 可能溢出)
+        elif model_key in qwen_models and max(x1, y1, x2, y2) <= 3000:
+            # 默认按宽高独立归一化
+            px1 = int(x1 / 1000.0 * image_width)
+            py1 = int(y1 / 1000.0 * image_height)
+            px2 = int(x2 / 1000.0 * image_width)
+            py2 = int(y2 / 1000.0 * image_height)
+            
+            # 越界修正 (针对横图 x 轴溢出，或竖图 y 轴溢出)
+            # 如果 x 轴溢出，或者触发了全局强制策略，则用 height 作为基准 (针对横图)
+            is_x_overflow = max(px1, px2) > image_width
+            if force_h_normalization or is_x_overflow:
+                 px1 = int(x1 / 1000.0 * image_height)
+                 px2 = int(x2 / 1000.0 * image_height)
+            
+            # 如果 y 轴溢出，尝试用 width 作为基准 (针对竖图)
+            if max(py1, py2) > image_height:
+                 py1 = int(y1 / 1000.0 * image_width)
+                 py2 = int(y2 / 1000.0 * image_width)
+                 
+            x1, y1, x2, y2 = px1, py1, px2, py2
+            
+        # 3. 普通 0-1000 归一化 (按宽高独立归一化)
         elif max(x1, y1, x2, y2) <= 1000:
-            # 对于 Qwen 系列等返回 0-1000 坐标的模型，由于默认长边基准进行等比例归一化，
-            # 若将宽和高分别独立的按比例还原，会导致非正方形图片发生严重拉伸(例如高度异常)。
-            # 正确的做法是以最长边为基线统一还原 (x1, y1 等值在内部本质表示百分比)。
-            max_side = max(image_width, image_height)
-            # 不过，如果模型输出的是 [ymin, xmin, ymax, xmax] 甚至会被 extract 解析成交叉。
-            # 为了尽可能保持大部分按照 width/height 独立归一化的其它模型兼容性：
             x1 = int(x1 * image_width / 1000)
             y1 = int(y1 * image_height / 1000)
             x2 = int(x2 * image_width / 1000)
             y2 = int(y2 * image_height / 1000)
-            
-            # 针对 qwen3 独有的以长边作为 1000 归一化特性（如果只有宽度放大，高度不变）
-            # 我们应该将高度乘数修复为 max_side
-            y1 = int(y1 * max_side / image_height) if max_side != image_height else y1
-            y2 = int(y2 * max_side / image_height) if max_side != image_height else y2
         else:
             x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
         
@@ -323,6 +373,9 @@ def adjust_bboxes(bboxes, image_width, image_height):
         y1 = max(0, y1)
         x2 = min(image_width, x2)
         y2 = min(image_height, y2)
+        
+        x1, x2 = min(x1, x2), max(x1, x2)
+        y1, y2 = min(y1, y2), max(y1, y2)
         
         adjusted.append({
             'content': item['content'],
@@ -423,6 +476,7 @@ MODEL_BBOX_COLORS = {
     "seed2.0-pro": "#00008B",   # 深蓝色 (dark blue)
     "qwen3-vl":    "red",       # 红色
     "qwen-vl-max": "#8B008B",   # 紫色 (dark magenta)
+    "qwen3.5-plus":"#FF8C00",   # 深橙色 (dark orange)
 }
 DEFAULT_BBOX_COLOR = "orange"
 
@@ -493,8 +547,13 @@ def test_single(image_path, prompt_name, prompt_text, model_key, model_config, r
         output = response.choices[0].message.content
         total_tokens = getattr(response.usage, 'total_tokens', 0)
         
+        # 保存原始输出作调试用
+        raw_output_path = os.path.join(outputs_bboxes_dir, f"raw_{model_key}_{image_name}_run{run_id}.txt")
+        with open(raw_output_path, 'w', encoding='utf-8') as f:
+            f.write(output)
+            
         raw_preds = extract_bboxes(output)
-        pred_bboxes = adjust_bboxes(raw_preds, width, height)
+        pred_bboxes = adjust_bboxes(raw_preds, width, height, model_key)
         metrics = calculate_metrics(pred_bboxes, gt_bboxes, IOU_THRESHOLD)
         
         print(f"✓ P={metrics['precision']:.0%} R={metrics['recall']:.0%} IoU={metrics['avg_iou']:.2f} T={inference_time:.1f}s GT={len(gt_bboxes)}")
