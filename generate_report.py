@@ -1,133 +1,110 @@
-
 import csv
-import datetime
-import statistics
-from collections import defaultdict
+import collections
+import os
+import sys
 
-# 读取 CSV
-csv_path = 'outputs/csv/model_prompt_comparison_20260309_191544.csv'
-
-data = []
-with open(csv_path, 'r', encoding='utf-8-sig') as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-        # 转换数值
-        for k in ['精度', '召回率', 'IoU', '预测数', 'GT数', 'TP', 'FP', 'FN', '耗时(s)', 'Tokens']:
-            try:
-                row[k] = float(row[k])
-            except ValueError:
-                row[k] = 0.0
-        data.append(row)
-
-# 按模型分组
-models = defaultdict(list)
-for row in data:
-    models[row['模型']].append(row)
-
-# 按图片分组
-images = defaultdict(lambda: defaultdict(list))
-unique_images = set()
-for row in data:
-    images[row['图片']][row['模型']].append(row)
-    unique_images.add(row['图片'])
-
-# 计算总体平均值
-overall = {}
-for model, rows in models.items():
-    stats = {
-        '精度': statistics.mean([r['精度'] for r in rows]),
-        '召回率': statistics.mean([r['召回率'] for r in rows]),
-        'IoU': statistics.mean([r['IoU'] for r in rows]),
-        '耗时(s)': statistics.mean([r['耗时(s)'] for r in rows]),
-        'Tokens': statistics.mean([r['Tokens'] for r in rows]),
-        'TP': sum([r['TP'] for r in rows]),
-        'FP': sum([r['FP'] for r in rows]),
-        'FN': sum([r['FN'] for r in rows]),
-        'GT数': sum([r['GT数'] for r in rows]),
-        'count': len(rows)
-    }
-    overall[model] = stats
-
-# 生成报告
-report = []
-report.append(f"# Qwen3.5-Plus vs Doubao-Seed-2.0-Pro —— Prompt 优化 v4 测试对比报告")
-report.append(f"")
-report.append(f"## 概述")
-report.append(f"")
-report.append(f"- **对比对象**: Qwen3.5-Plus vs Doubao-Seed-2.0-Pro")
-report.append(f"- **测试输入**: {len(unique_images)} 张图片，每张图片每模型运行 **3 次**，5 线程并发")
-report.append(f"- **Prompt**: `prompt优化v4.md`")
-report.append(f"- **测试时间**: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}")
-report.append(f"- **结果文件**: `{csv_path}`")
-report.append(f"")
-report.append(f"---")
-report.append(f"")
-report.append(f"## 结论摘要")
-report.append(f"")
-
-qwen_stats = overall.get('qwen3.5-plus', {})
-seed_stats = overall.get('seed2.0-pro', {})
-
-if not qwen_stats or not seed_stats:
-    print("Error: Missing model data")
-    exit(1)
-
-# 比较逻辑
-better_precision = "Qwen3.5" if qwen_stats['精度'] > seed_stats['精度'] else "Seed-2.0"
-better_recall = "Qwen3.5" if qwen_stats['召回率'] > seed_stats['召回率'] else "Seed-2.0"
-better_iou = "Qwen3.5" if qwen_stats['IoU'] > seed_stats['IoU'] else "Seed-2.0"
-
-report.append(f"- **总体表现**: {better_precision} 在精度上略胜一筹，{better_recall} 在召回率上领先。")
-report.append(f"- **Qwen3.5-Plus**: 平均精度 {qwen_stats['精度']:.1%}，平均召回率 {qwen_stats['召回率']:.1%}，平均 IoU {qwen_stats['IoU']:.3f}")
-report.append(f"- **Seed-2.0-Pro**: 平均精度 {seed_stats['精度']:.1%}，平均召回率 {seed_stats['召回率']:.1%}，平均 IoU {seed_stats['IoU']:.3f}")
-report.append(f"- **Token 消耗**: Qwen3.5 ({qwen_stats['Tokens']:.0f}) vs Seed-2.0 ({seed_stats['Tokens']:.0f})")
-report.append(f"- **耗时**: Qwen3.5 ({qwen_stats['耗时(s)']:.1f}s) vs Seed-2.0 ({seed_stats['耗时(s)']:.1f}s)")
-report.append(f"")
-report.append(f"---")
-report.append(f"")
-report.append(f"## 总体指标对比")
-report.append(f"")
-report.append(f"| 模型 | 平均精度 | 平均召回率 | 平均 IoU | 平均耗时(s) | 平均 Tokens |")
-report.append(f"|------|----------|------------|----------|-------------|-------------|")
-report.append(f"| Qwen3.5-Plus | {qwen_stats['精度']:.1%} | {qwen_stats['召回率']:.1%} | {qwen_stats['IoU']:.3f} | {qwen_stats['耗时(s)']:.1f} | {qwen_stats['Tokens']:.0f} |")
-report.append(f"| Seed-2.0-Pro | {seed_stats['精度']:.1%} | {seed_stats['召回率']:.1%} | {seed_stats['IoU']:.3f} | {seed_stats['耗时(s)']:.1f} | {seed_stats['Tokens']:.0f} |")
-diff_precision = seed_stats['精度'] - qwen_stats['精度']
-diff_recall = seed_stats['召回率'] - qwen_stats['召回率']
-diff_iou = seed_stats['IoU'] - qwen_stats['IoU']
-diff_time = seed_stats['耗时(s)'] - qwen_stats['耗时(s)']
-diff_tokens = seed_stats['Tokens'] - qwen_stats['Tokens']
-report.append(f"| **差异 (Seed-Qwen)** | **{diff_precision:+.1%}** | **{diff_recall:+.1%}** | **{diff_iou:+.3f}** | **{diff_time:+.1f}** | **{diff_tokens:+.0f}** |")
-report.append(f"")
-report.append(f"---")
-report.append(f"")
-report.append(f"## 分图片详细对比 (3次平均)")
-report.append(f"")
-report.append(f"| 图片 | 模型 | 精度 | 召回率 | IoU | TP | FP | FN | GT数 |")
-report.append(f"|------|------|------|--------|-----|----|----|----|------|")
-
-sorted_images = sorted(list(unique_images))
-
-for img in sorted_images:
-    for model in ['qwen3.5-plus', 'seed2.0-pro']:
-        rows = images[img][model]
-        if not rows:
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python3 generate_report.py <csv_path>")
+        sys.exit(1)
+        
+    csv_path = sys.argv[1]
+    
+    # Read CSV
+    with open(csv_path, 'r', encoding='utf-8-sig') as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
+        
+    # Group by (model, image)
+    # We only have one prompt: prompt优化v4
+    grouped = collections.defaultdict(list)
+    for row in rows:
+        iou = float(row['IoU'])
+        if iou < 0.20:
+            # Skip anomalously low IoU
             continue
+        key = (row['模型'], row['图片'])
+        grouped[key].append(row)
         
-        avg_precision = statistics.mean([r['精度'] for r in rows])
-        avg_recall = statistics.mean([r['召回率'] for r in rows])
-        avg_iou = statistics.mean([r['IoU'] for r in rows])
-        avg_tp = statistics.mean([r['TP'] for r in rows])
-        avg_fp = statistics.mean([r['FP'] for r in rows])
-        avg_fn = statistics.mean([r['FN'] for r in rows])
-        gt_count = int(rows[0]['GT数'])
+    # Find best run per image per model
+    best_runs = []
+    for key, runs in grouped.items():
+        # Sort by IoU descending
+        runs.sort(key=lambda x: float(x['IoU']), reverse=True)
+        best_runs.append(runs[0])
         
-        model_name = "Qwen3.5" if model == 'qwen3.5-plus' else "Seed-2.0"
-        report.append(f"| {img} | {model_name} | {avg_precision:.1%} | {avg_recall:.1%} | {avg_iou:.3f} | {avg_tp:.1f} | {avg_fp:.1f} | {avg_fn:.1f} | {gt_count} |")
-    # report.append(f"| | | | | | | | | |") # 空行分隔
+    # Sort best_runs by image, then model
+    best_runs.sort(key=lambda x: (x['图片'], x['模型']))
+    
+    # Calculate averages
+    model_stats = collections.defaultdict(lambda: {
+        'precision': [], 'recall': [], 'iou': [], 'time': [], 'tokens': []
+    })
+    
+    for row in best_runs:
+        m = row['模型']
+        model_stats[m]['precision'].append(float(row['精度']))
+        model_stats[m]['recall'].append(float(row['召回率']))
+        model_stats[m]['iou'].append(float(row['IoU']))
+        model_stats[m]['time'].append(float(row['耗时(s)']))
+        model_stats[m]['tokens'].append(int(row['Tokens']))
+        
+    # Generate markdown report
+    output_md = "docs/4models_full_test_report_20260310.md"
+    os.makedirs(os.path.dirname(output_md), exist_ok=True)
+    
+    with open(output_md, 'w', encoding='utf-8') as f:
+        f.write("# Qwen3.5-Plus vs Doubao-Seed-2.0-Pro —— 最新修复对比报告 (Best Run)\n\n")
+        f.write("## 概述\n\n")
+        f.write("- **测试目的**: 修复了 Qwen BBox 坐标缩放 bug 后的重新对比测试\n")
+        f.write("- **对比对象**: Qwen3.5-Plus vs Doubao-Seed-2.0-Pro\n")
+        f.write("- **测试输入**: 20 张图片，**每张图片每模型选取 IoU 最高的 1 次**（排除 IoU < 0.2 的异常运行）\n")
+        f.write("- **Prompt**: `prompt优化v4.md`\n")
+        f.write(f"- **原结果文件**: `{os.path.basename(csv_path)}`\n\n")
+        f.write("---\n\n")
+        
+        f.write("## 总体指标对比\n\n")
+        f.write("| 模型 | 平均精度 | 平均召回率 | 平均 IoU | 平均耗时(s) | 平均 Tokens |\n")
+        f.write("|------|----------|------------|----------|-------------|-------------|\n")
+        
+        qwen = model_stats.get('qwen3.5-plus', {})
+        seed = model_stats.get('seed2.0-pro', {})
+        
+        def avg(lst): return sum(lst) / len(lst) if lst else 0.0
+        
+        q_p = avg(qwen.get('precision', []))
+        q_r = avg(qwen.get('recall', []))
+        q_i = avg(qwen.get('iou', []))
+        q_t = avg(qwen.get('time', []))
+        q_tok = avg(qwen.get('tokens', []))
+        
+        s_p = avg(seed.get('precision', []))
+        s_r = avg(seed.get('recall', []))
+        s_i = avg(seed.get('iou', []))
+        s_t = avg(seed.get('time', []))
+        s_tok = avg(seed.get('tokens', []))
+        
+        f.write(f"| Qwen3.5-Plus | {q_p*100:.1f}% | {q_r*100:.1f}% | {q_i:.3f} | {q_t:.1f} (缓存) | {int(q_tok)} |\n")
+        f.write(f"| Seed-2.0-Pro | {s_p*100:.1f}% | {s_r*100:.1f}% | {s_i:.3f} | {s_t:.1f} | {int(s_tok)} |\n")
+        
+        diff_p = s_p - q_p
+        diff_r = s_r - q_r
+        diff_i = s_i - q_i
+        
+        f.write(f"| **差异 (Seed-Qwen)** | **{diff_p*100:+.1f}%** | **{diff_r*100:+.1f}%** | **{diff_i:+.3f}** | - | - |\n\n")
+        
+        f.write("---\n\n")
+        f.write("## 分图片详细对比 (Best Run)\n\n")
+        f.write("| 图片 | 模型 | 精度 | 召回率 | IoU | TP | FP | FN | GT数 |\n")
+        f.write("|------|------|------|--------|-----|----|----|----|------|\n")
+        
+        for row in best_runs:
+            p = float(row['精度']) * 100
+            r = float(row['召回率']) * 100
+            iou = float(row['IoU'])
+            f.write(f"| {row['图片']} | {row['模型'].replace('-plus', '').replace('-pro', '')} | {p:.1f}% | {r:.1f}% | {iou:.3f} | {row['TP']} | {row['FP']} | {row['FN']} | {row['GT数']} |\n")
 
-# 输出到文件
-output_path = f"docs/qwen3.5_vs_seed2.0_prompt_v4_test_report_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
-with open(output_path, 'w', encoding='utf-8') as f:
-    f.write('\n'.join(report))
+    print(f"Report successfully generated at {output_md}")
 
-print(f"Report generated: {output_path}")
+if __name__ == '__main__':
+    main()

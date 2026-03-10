@@ -23,7 +23,7 @@ from runners.qwen_runner import QwenRunner
 
 NUM_RUNS = 5  # 每个提示词每张图测试次数
 IOU_THRESHOLD = 0.5
-CALL_TIMEOUT_SECONDS = 200
+CALL_TIMEOUT_SECONDS = 120
 
 # 脚本目录
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -160,7 +160,8 @@ def build_runner(model_key, model_config, args):
         ep = _pick_first(
             args.seed20_ep,
             os.getenv("SEED20_EP", "").strip(),
-            model_config.get("ep", "")
+            model_config.get("ep", ""),
+            "ep-20260304172343-7thnh"
         )
         model_id = _pick_first(
             os.getenv("SEED20_MODEL_ID", "").strip(),
@@ -313,20 +314,27 @@ def adjust_bboxes(bboxes, image_width, image_height, model_key=""):
     # Qwen 系列模型的 key
     qwen_models = ['qwen3-vl', 'qwen3.5-plus', 'qwen-vl-max']
     
-    # 针对 Qwen 横图的预处理：统计越界比例，决定是否全局强制按 Height 归一化
-    force_h_normalization = False
-    if model_key in qwen_models and image_width > image_height:
-        total_count = len(bboxes)
-        overflow_count = 0
-        for item in bboxes:
-            # 检查原始坐标是否超过 1000 (即按 W 归一化会越界)
-            if max(item['bbox'][0], item['bbox'][2]) > 1000:
-                overflow_count += 1
-        
-        # 如果越界比例超过 30%，则判定整个 run 的 x 轴基准异常 (基于 Height)
-        if total_count > 0 and (overflow_count / total_count > 0.3):
-            force_h_normalization = True
-    
+    # 针对 Qwen 预处理：推断归一化基准
+    base_w, base_h = image_width, image_height
+    if model_key in qwen_models and bboxes:
+        max_x = max([max(b['bbox'][0], b['bbox'][2]) for b in bboxes])
+        max_y = max([max(b['bbox'][1], b['bbox'][3]) for b in bboxes])
+        if image_width > image_height:
+            ratio_limit = (image_height / image_width) * 1000
+            if max_x > 1005:
+                base_w, base_h = image_height, image_height
+            elif max_y <= ratio_limit + 5:
+                base_w, base_h = image_width, image_width
+            else:
+                base_w, base_h = image_width, image_height
+        else:
+            ratio_limit = (image_width / image_height) * 1000
+            if max_y > 1005:
+                base_w, base_h = image_width, image_width
+            elif max_x <= ratio_limit + 5:
+                base_w, base_h = image_height, image_height
+            else:
+                base_w, base_h = image_width, image_height
     for item in bboxes:
         bbox = item['bbox']
         x1, y1, x2, y2 = bbox
@@ -338,26 +346,14 @@ def adjust_bboxes(bboxes, image_width, image_height, model_key=""):
             x2 = int(x2 * image_width)
             y2 = int(y2 * image_height)
             
-        # 2. Qwen 系列特殊处理 (0-1000, 长边归一化, 可能溢出)
+        # 2. Qwen 系列特殊处理: 存在三种归一化可能性 (独立, 按宽, 按高)
         elif model_key in qwen_models and max(x1, y1, x2, y2) <= 3000:
-            # 默认按宽高独立归一化
-            px1 = int(x1 / 1000.0 * image_width)
-            py1 = int(y1 / 1000.0 * image_height)
-            px2 = int(x2 / 1000.0 * image_width)
-            py2 = int(y2 / 1000.0 * image_height)
+            # 根据预处理推断的基准进行归一化
+            px1 = int(x1 / 1000.0 * base_w)
+            py1 = int(y1 / 1000.0 * base_h)
+            px2 = int(x2 / 1000.0 * base_w)
+            py2 = int(y2 / 1000.0 * base_h)
             
-            # 越界修正 (针对横图 x 轴溢出，或竖图 y 轴溢出)
-            # 如果 x 轴溢出，或者触发了全局强制策略，则用 height 作为基准 (针对横图)
-            is_x_overflow = max(px1, px2) > image_width
-            if force_h_normalization or is_x_overflow:
-                 px1 = int(x1 / 1000.0 * image_height)
-                 px2 = int(x2 / 1000.0 * image_height)
-            
-            # 如果 y 轴溢出，尝试用 width 作为基准 (针对竖图)
-            if max(py1, py2) > image_height:
-                 py1 = int(y1 / 1000.0 * image_width)
-                 py2 = int(y2 / 1000.0 * image_width)
-                 
             x1, y1, x2, y2 = px1, py1, px2, py2
             
         # 3. 普通 0-1000 归一化 (按宽高独立归一化)
@@ -524,7 +520,7 @@ def draw_result_bboxes(image_path, pred_bboxes, gt_bboxes, model_key, model_name
 
 # ======================== 核心测试 ========================
 
-def test_single(image_path, prompt_name, prompt_text, model_key, model_config, runner, run_id):
+def test_single(image_path, prompt_name, prompt_text, model_key, model_config, runner, run_id, use_cache=False):
     """执行单次测试"""
     image_name = os.path.basename(image_path)
     model_short = model_key
@@ -537,15 +533,31 @@ def test_single(image_path, prompt_name, prompt_text, model_key, model_config, r
     
     start_time = time.time()
     try:
-        response = runner.run(
-            prompt_text,
-            image_path,
-            CALL_TIMEOUT_SECONDS
-        )
-        
-        inference_time = time.time() - start_time
-        output = response.choices[0].message.content
-        total_tokens = getattr(response.usage, 'total_tokens', 0)
+        cache_hit = False
+        if use_cache:
+            import glob
+            pattern = os.path.join(outputs_dir, "bboxes", "archive_*", f"raw_{model_key}_{image_name}_run{run_id}.txt")
+            matches = glob.glob(pattern)
+            if matches:
+                with open(matches[-1], 'r', encoding='utf-8') as f:
+                    output = f.read()
+                cache_hit = True
+                
+        if not cache_hit:
+            response = runner.run(
+                prompt_text,
+                image_path,
+                CALL_TIMEOUT_SECONDS
+            )
+            
+            inference_time = time.time() - start_time
+            output = response.choices[0].message.content
+            total_tokens = getattr(response.usage, 'total_tokens', 0)
+        else:
+            inference_time = 0.0
+            total_tokens = 0
+            import time as base_time
+            base_time.sleep(0.1)
         
         # 保存原始输出作调试用
         raw_output_path = os.path.join(outputs_bboxes_dir, f"raw_{model_key}_{image_name}_run{run_id}.txt")
@@ -764,6 +776,8 @@ def parse_args():
                         help="最大并发数 (默认: 5)")
     parser.add_argument('--images', nargs='+', default=None,
                         help="指定测试图片（如 img1.jpg img2.jpg），默认全部")
+    parser.add_argument('--use-cache', action='store_true',
+                        help="如果存在归档的raw output txt文件，直接读取而跳过API调用")
     return parser.parse_args()
 
 # ======================== 主函数 ========================
@@ -839,7 +853,8 @@ def main():
                         model_key,
                         model_config,
                         runner,
-                        run_id
+                        run_id,
+                        args.use_cache
                     ): (image_path, run_id)
                     for image_path, run_id in tasks
                 }

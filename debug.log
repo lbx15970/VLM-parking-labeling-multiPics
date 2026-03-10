@@ -1,0 +1,39 @@
+
+======================================================================
+🔬 多模型 × 多提示词对比测试
+======================================================================
+  模型:     qwen3.5-plus
+  提示词:   prompt优化v4
+  图片:     1 张 (00001.jpg~00020.jpg)
+  每组轮次: 1
+  并发数:   5
+  总测试数: 1
+======================================================================
+
+======================================================================
+🤖 模型: Qwen3.5-Plus (qwen3.5-plus)
+   Model ID: qwen3.5-plus
+======================================================================
+
+  📝 提示词: prompt优化v4
+     文件: prompt优化v4.md
+  --------------------------------------------------
+    [1] qwen3.5-plus | prompt优化v4 | 00002.jpg... DEBUG: use_cache=True, pattern=/Users/bytedance/PycharmProjects/VLM-parking-labeling-multiPics/outputs/bboxes/archive_*/raw_qwen3.5-plus_00002.jpg_run1.txt, matches=['/Users/bytedance/PycharmProjects/VLM-parking-labeling-multiPics/outputs/bboxes/archive_20260309/raw_qwen3.5-plus_00002.jpg_run1.txt']
+✓ P=73% R=57% IoU=0.64 T=0.0s GT=14
+      📄 bbox txt: bbox_info_qwen3.5-plus_prompt优化v4_00002_run1_20260310_161917.txt
+      🖼️  bbox jpg: result_with_bboxes_qwen3.5-plus_prompt优化v4_00002_run1_20260310_161917.jpg
+    qwen3.5-plus | prompt优化v4 | 00002.jpg (1次)
+    精度:    72.7% (范围: 72.7% ~ 72.7%)
+    召回率:  57.1% (范围: 57.1% ~ 57.1%)
+    IoU:     0.636
+    错标(FP): 平均 3.0 个
+    漏标(FN): 平均 6.0 个
+    耗时:    0.0s
+    Tokens:  0
+   📁 已保存: qwen3.5-plus_prompt优化v4_20260310_161917.csv
+
+📁 汇总结果已保存: model_prompt_comparison_20260310_161917.csv
+
+======================================================================
+✅ 测试完成! 共 1/1 次成功
+======================================================================

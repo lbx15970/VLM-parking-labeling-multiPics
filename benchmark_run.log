@@ -1,0 +1,646 @@
+
+======================================================================
+🔬 多模型 × 多提示词对比测试
+======================================================================
+  模型:     qwen3.5-plus, seed2.0-pro
+  提示词:   prompt优化v4
+  图片:     20 张 (00001.jpg~00020.jpg)
+  每组轮次: 3
+  并发数:   5
+  总测试数: 120
+======================================================================
+
+======================================================================
+🤖 模型: Qwen3.5-Plus (qwen3.5-plus)
+   Model ID: qwen3.5-plus
+======================================================================
+
+  📝 提示词: prompt优化v4
+     文件: prompt优化v4.md
+  --------------------------------------------------
+    [1] qwen3.5-plus | prompt优化v4 | 00001.jpg...     [2] qwen3.5-plus | prompt优化v4 | 00001.jpg...     [3] qwen3.5-plus | prompt优化v4 | 00001.jpg...    [1] qwen3.5-plus | prompt优化v4 | 00002.jpg...      [2] qwen3.5-plus | prompt优化v4 | 00002.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea    [3] qwen3.5-plus | prompt优化v4 | 00002.jpg...
+     [1] qwen3.5-plus | prompt优化v4 | 00003.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+
+    [2] qwen3.5-plus | prompt优化v4 | 00003.jpg...    [3] qwen3.5-plus | prompt优化v4 | 00003.jpg...  ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00004.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00004.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00004.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00005.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00005.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00005.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00006.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00006.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea    [3] qwen3.5-plus | prompt优化v4 | 00006.jpg...
+     [1] qwen3.5-plus | prompt优化v4 | 00007.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00007.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00007.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00008.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00008.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00008.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00009.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00009.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00009.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00010.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00010.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00010.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00011.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00011.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+
+    [3] qwen3.5-plus | prompt优化v4 | 00011.jpg...    [1] qwen3.5-plus | prompt优化v4 | 00012.jpg...  ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00012.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00012.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00013.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00013.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00013.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00014.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00014.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00014.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00015.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00015.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00015.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00016.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00016.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00016.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00017.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00017.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00017.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00018.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00018.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00018.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00019.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00019.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00019.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [1] qwen3.5-plus | prompt优化v4 | 00020.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [2] qwen3.5-plus | prompt优化v4 | 00020.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+    [3] qwen3.5-plus | prompt优化v4 | 00020.jpg... ✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+✗ 错误: Error code: 400 - {'error': {'message': 'Access denied, plea
+
+======================================================================
+🤖 模型: Doubao-Seed-2.0-Pro (seed2.0-pro)
+   Model ID: ep-20260304172343-7thnh
+======================================================================
+
+  📝 提示词: prompt优化v4
+     文件: prompt优化v4.md
+  --------------------------------------------------
+    [1] seed2.0-pro | prompt优化v4 | 00001.jpg...     [2] seed2.0-pro | prompt优化v4 | 00001.jpg...     [3] seed2.0-pro | prompt优化v4 | 00001.jpg...     [1] seed2.0-pro | prompt优化v4 | 00002.jpg...    [2] seed2.0-pro | prompt优化v4 | 00002.jpg...  ✓ P=78% R=50% IoU=0.71 T=64.6s GT=14
+    [3] seed2.0-pro | prompt优化v4 | 00002.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00002_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00002_run1_20260310_161024.jpg
+✓ P=53% R=57% IoU=0.71 T=87.1s GT=14
+    [1] seed2.0-pro | prompt优化v4 | 00003.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00002_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00002_run2_20260310_161024.jpg
+✓ P=52% R=40% IoU=0.70 T=108.4s GT=35
+    [2] seed2.0-pro | prompt优化v4 | 00003.jpg... ✓ P=76% R=54% IoU=0.68 T=108.4s GT=35
+    [3] seed2.0-pro | prompt优化v4 | 00003.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00001_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00001_run3_20260310_161024.jpg
+      📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00001_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00001_run1_20260310_161024.jpg
+✓ P=67% R=46% IoU=0.67 T=110.0s GT=35
+    [1] seed2.0-pro | prompt优化v4 | 00004.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00001_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00001_run2_20260310_161024.jpg
+✓ P=70% R=50% IoU=0.73 T=66.4s GT=14
+    [2] seed2.0-pro | prompt优化v4 | 00004.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00002_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00002_run3_20260310_161024.jpg
+✓ P=78% R=47% IoU=0.69 T=59.3s GT=15
+    [3] seed2.0-pro | prompt优化v4 | 00004.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00003_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00003_run1_20260310_161024.jpg
+✓ P=29% R=20% IoU=0.56 T=57.2s GT=10
+    [1] seed2.0-pro | prompt优化v4 | 00005.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00004_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00004_run1_20260310_161024.jpg
+✓ P=78% R=47% IoU=0.68 T=67.5s GT=15
+    [2] seed2.0-pro | prompt优化v4 | 00005.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00003_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00003_run2_20260310_161024.jpg
+✓ P=73% R=53% IoU=0.71 T=80.6s GT=15
+    [3] seed2.0-pro | prompt优化v4 | 00005.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00003_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00003_run3_20260310_161024.jpg
+✓ P=33% R=30% IoU=0.51 T=69.2s GT=10
+    [1] seed2.0-pro | prompt优化v4 | 00006.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00004_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00004_run2_20260310_161024.jpg
+✓ P=36% R=40% IoU=0.65 T=77.7s GT=10
+    [2] seed2.0-pro | prompt优化v4 | 00006.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00004_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00004_run3_20260310_161024.jpg
+✓ P=50% R=33% IoU=0.56 T=65.3s GT=6
+    [3] seed2.0-pro | prompt优化v4 | 00006.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00005_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00005_run1_20260310_161024.jpg
+✓ P=25% R=17% IoU=0.59 T=89.3s GT=6
+    [1] seed2.0-pro | prompt优化v4 | 00007.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00005_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00005_run2_20260310_161024.jpg
+✓ P=0% R=0% IoU=0.00 T=80.8s GT=6
+    [2] seed2.0-pro | prompt优化v4 | 00007.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00005_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00005_run3_20260310_161024.jpg
+✓ P=37% R=25% IoU=0.66 T=88.4s GT=28
+    [3] seed2.0-pro | prompt优化v4 | 00007.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00006_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00006_run1_20260310_161024.jpg
+✓ P=47% R=29% IoU=0.66 T=91.5s GT=28
+    [1] seed2.0-pro | prompt优化v4 | 00008.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00006_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00006_run2_20260310_161024.jpg
+✓ P=35% R=21% IoU=0.71 T=105.6s GT=28
+    [2] seed2.0-pro | prompt优化v4 | 00008.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00006_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00006_run3_20260310_161024.jpg
+✓ P=50% R=22% IoU=0.64 T=71.5s GT=27
+    [3] seed2.0-pro | prompt优化v4 | 00008.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00007_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00007_run3_20260310_161024.jpg
+✓ P=69% R=33% IoU=0.68 T=95.9s GT=27
+    [1] seed2.0-pro | prompt优化v4 | 00009.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00007_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00007_run1_20260310_161024.jpg
+✓ P=91% R=71% IoU=0.74 T=70.1s GT=14
+    [2] seed2.0-pro | prompt优化v4 | 00009.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00008_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00008_run1_20260310_161024.jpg
+✗ 错误: timeout after 120s
+    [3] seed2.0-pro | prompt优化v4 | 00009.jpg... ✓ P=70% R=50% IoU=0.70 T=60.1s GT=14
+    [1] seed2.0-pro | prompt优化v4 | 00010.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00008_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00008_run2_20260310_161024.jpg
+✓ P=64% R=50% IoU=0.73 T=93.3s GT=14
+    [2] seed2.0-pro | prompt优化v4 | 00010.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00008_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00008_run3_20260310_161024.jpg
+✓ P=67% R=62% IoU=0.74 T=68.7s GT=16
+    [3] seed2.0-pro | prompt优化v4 | 00010.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00009_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00009_run2_20260310_161024.jpg
+✓ P=71% R=62% IoU=0.73 T=96.2s GT=16
+    [1] seed2.0-pro | prompt优化v4 | 00011.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00009_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00009_run1_20260310_161024.jpg
+✓ P=64% R=56% IoU=0.71 T=72.7s GT=16
+    [2] seed2.0-pro | prompt优化v4 | 00011.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00009_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00009_run3_20260310_161024.jpg
+✗ 错误: timeout after 120s
+    [3] seed2.0-pro | prompt优化v4 | 00011.jpg... ✓ P=75% R=69% IoU=0.78 T=86.5s GT=13
+    [1] seed2.0-pro | prompt优化v4 | 00012.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00011_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00011_run1_20260310_161024.jpg
+✓ P=75% R=69% IoU=0.75 T=76.1s GT=13
+    [2] seed2.0-pro | prompt优化v4 | 00012.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00011_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00011_run2_20260310_161024.jpg
+✗ 错误: timeout after 120s
+    [3] seed2.0-pro | prompt优化v4 | 00012.jpg... ✗ 错误: timeout after 120s
+    [1] seed2.0-pro | prompt优化v4 | 00013.jpg... ✓ P=82% R=69% IoU=0.71 T=80.9s GT=13
+    [2] seed2.0-pro | prompt优化v4 | 00013.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00011_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00011_run3_20260310_161024.jpg
+✓ P=25% R=17% IoU=0.60 T=76.6s GT=18
+    [3] seed2.0-pro | prompt优化v4 | 00013.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00012_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00012_run1_20260310_161024.jpg
+✓ P=36% R=22% IoU=0.74 T=86.8s GT=18
+    [1] seed2.0-pro | prompt优化v4 | 00014.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00012_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00012_run2_20260310_161024.jpg
+✓ P=27% R=22% IoU=0.69 T=90.0s GT=18
+    [2] seed2.0-pro | prompt优化v4 | 00014.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00012_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00012_run3_20260310_161024.jpg
+✓ P=65% R=65% IoU=0.64 T=114.8s GT=20
+    [3] seed2.0-pro | prompt优化v4 | 00014.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00013_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00013_run1_20260310_161024.jpg
+✓ P=67% R=58% IoU=0.70 T=94.8s GT=24
+    [1] seed2.0-pro | prompt优化v4 | 00015.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00014_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00014_run1_20260310_161024.jpg
+✗ 错误: timeout after 120s
+    [2] seed2.0-pro | prompt优化v4 | 00015.jpg... ✗ 错误: timeout after 120s
+    [3] seed2.0-pro | prompt优化v4 | 00015.jpg... ✗ 错误: timeout after 120s
+    [1] seed2.0-pro | prompt优化v4 | 00016.jpg... ✓ P=80% R=67% IoU=0.67 T=94.9s GT=24
+    [2] seed2.0-pro | prompt优化v4 | 00016.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00014_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00014_run3_20260310_161024.jpg
+✓ P=50% R=40% IoU=0.72 T=95.3s GT=15
+    [3] seed2.0-pro | prompt优化v4 | 00016.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00015_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00015_run1_20260310_161024.jpg
+✓ P=50% R=47% IoU=0.70 T=90.1s GT=15
+    [1] seed2.0-pro | prompt优化v4 | 00017.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00015_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00015_run3_20260310_161024.jpg
+✓ P=53% R=53% IoU=0.64 T=107.5s GT=15
+    [2] seed2.0-pro | prompt优化v4 | 00017.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00015_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00015_run2_20260310_161024.jpg
+✓ P=100% R=83% IoU=0.87 T=56.9s GT=6
+    [3] seed2.0-pro | prompt优化v4 | 00017.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00016_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00016_run2_20260310_161024.jpg
+✓ P=100% R=83% IoU=0.79 T=89.8s GT=6
+    [1] seed2.0-pro | prompt优化v4 | 00018.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00016_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00016_run1_20260310_161024.jpg
+✓ P=100% R=83% IoU=0.87 T=58.6s GT=6
+    [2] seed2.0-pro | prompt优化v4 | 00018.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00016_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00016_run3_20260310_161024.jpg
+✓ P=58% R=46% IoU=0.69 T=89.1s GT=24
+    [3] seed2.0-pro | prompt优化v4 | 00018.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00017_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00017_run1_20260310_161024.jpg
+✓ P=35% R=25% IoU=0.67 T=88.8s GT=24
+    [1] seed2.0-pro | prompt优化v4 | 00019.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00017_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00017_run3_20260310_161024.jpg
+✓ P=55% R=46% IoU=0.70 T=73.4s GT=13
+    [2] seed2.0-pro | prompt优化v4 | 00019.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00018_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00018_run1_20260310_161024.jpg
+✓ P=55% R=46% IoU=0.67 T=109.0s GT=24
+    [3] seed2.0-pro | prompt优化v4 | 00019.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00017_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00017_run2_20260310_161024.jpg
+✓ P=40% R=31% IoU=0.71 T=79.5s GT=13
+    [1] seed2.0-pro | prompt优化v4 | 00020.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00018_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00018_run2_20260310_161024.jpg
+✓ P=45% R=38% IoU=0.74 T=56.4s GT=13
+    [2] seed2.0-pro | prompt优化v4 | 00020.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00018_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00018_run3_20260310_161024.jpg
+✓ P=75% R=67% IoU=0.64 T=78.8s GT=18
+    [3] seed2.0-pro | prompt优化v4 | 00020.jpg...       📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00019_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00019_run2_20260310_161024.jpg
+✓ P=59% R=56% IoU=0.67 T=96.5s GT=18
+      📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00019_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00019_run1_20260310_161024.jpg
+✓ P=67% R=50% IoU=0.68 T=78.6s GT=8
+      📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00020_run1_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00020_run1_20260310_161024.jpg
+✓ P=56% R=50% IoU=0.70 T=112.5s GT=18
+      📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00019_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00019_run3_20260310_161024.jpg
+✓ P=50% R=50% IoU=0.72 T=98.3s GT=8
+      📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00020_run2_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00020_run2_20260310_161024.jpg
+✓ P=50% R=50% IoU=0.64 T=84.6s GT=8
+      📄 bbox txt: bbox_info_seed2.0-pro_prompt优化v4_00020_run3_20260310_161024.txt
+      🖼️  bbox jpg: result_with_bboxes_seed2.0-pro_prompt优化v4_00020_run3_20260310_161024.jpg
+    seed2.0-pro | prompt优化v4 | 00001.jpg (3次)
+    精度:    64.8% (范围: 51.9% ~ 76.0%)
+    召回率:  46.7% (范围: 40.0% ~ 54.3%)
+    IoU:     0.683
+    错标(FP): 平均 9.0 个
+    漏标(FN): 平均 18.7 个
+    耗时:    108.9s
+    Tokens:  8722
+    seed2.0-pro | prompt优化v4 | 00002.jpg (3次)
+    精度:    67.0% (范围: 53.3% ~ 77.8%)
+    召回率:  52.4% (范围: 50.0% ~ 57.1%)
+    IoU:     0.713
+    错标(FP): 平均 4.0 个
+    漏标(FN): 平均 6.7 个
+    耗时:    72.7s
+    Tokens:  7065
+    seed2.0-pro | prompt优化v4 | 00003.jpg (3次)
+    精度:    76.1% (范围: 72.7% ~ 77.8%)
+    召回率:  48.9% (范围: 46.7% ~ 53.3%)
+    IoU:     0.693
+    错标(FP): 平均 2.3 个
+    漏标(FN): 平均 7.7 个
+    耗时:    69.1s
+    Tokens:  6900
+    seed2.0-pro | prompt优化v4 | 00004.jpg (3次)
+    精度:    32.8% (范围: 28.6% ~ 36.4%)
+    召回率:  30.0% (范围: 20.0% ~ 40.0%)
+    IoU:     0.573
+    错标(FP): 平均 6.0 个
+    漏标(FN): 平均 7.0 个
+    耗时:    68.0s
+    Tokens:  6766
+    seed2.0-pro | prompt优化v4 | 00005.jpg (3次)
+    精度:    25.0% (范围: 0.0% ~ 50.0%)
+    召回率:  16.7% (范围: 0.0% ~ 33.3%)
+    IoU:     0.385
+    错标(FP): 平均 3.0 个
+    漏标(FN): 平均 5.0 个
+    耗时:    78.5s
+    Tokens:  7159
+    seed2.0-pro | prompt优化v4 | 00006.jpg (3次)
+    精度:    39.7% (范围: 35.3% ~ 47.1%)
+    召回率:  25.0% (范围: 21.4% ~ 28.6%)
+    IoU:     0.675
+    错标(FP): 平均 10.7 个
+    漏标(FN): 平均 21.0 个
+    耗时:    95.1s
+    Tokens:  8072
+    seed2.0-pro | prompt优化v4 | 00007.jpg (2次)
+    精度:    59.6% (范围: 50.0% ~ 69.2%)
+    召回率:  27.8% (范围: 22.2% ~ 33.3%)
+    IoU:     0.657
+    错标(FP): 平均 5.0 个
+    漏标(FN): 平均 19.5 个
+    耗时:    83.7s
+    Tokens:  7558
+    seed2.0-pro | prompt优化v4 | 00008.jpg (3次)
+    精度:    74.8% (范围: 63.6% ~ 90.9%)
+    召回率:  57.1% (范围: 50.0% ~ 71.4%)
+    IoU:     0.720
+    错标(FP): 平均 2.7 个
+    漏标(FN): 平均 6.0 个
+    耗时:    74.5s
+    Tokens:  6999
+    seed2.0-pro | prompt优化v4 | 00009.jpg (3次)
+    精度:    67.5% (范围: 64.3% ~ 71.4%)
+    召回率:  60.4% (范围: 56.2% ~ 62.5%)
+    IoU:     0.727
+    错标(FP): 平均 4.7 个
+    漏标(FN): 平均 6.3 个
+    耗时:    79.2s
+    Tokens:  7195
+    seed2.0-pro | prompt优化v4 | 00011.jpg (3次)
+    精度:    77.3% (范围: 75.0% ~ 81.8%)
+    召回率:  69.2% (范围: 69.2% ~ 69.2%)
+    IoU:     0.746
+    错标(FP): 平均 2.7 个
+    漏标(FN): 平均 4.0 个
+    耗时:    81.2s
+    Tokens:  7379
+    seed2.0-pro | prompt优化v4 | 00012.jpg (3次)
+    精度:    29.3% (范围: 25.0% ~ 36.4%)
+    召回率:  20.4% (范围: 16.7% ~ 22.2%)
+    IoU:     0.676
+    错标(FP): 平均 9.0 个
+    漏标(FN): 平均 14.3 个
+    耗时:    84.5s
+    Tokens:  7486
+    seed2.0-pro | prompt优化v4 | 00013.jpg (1次)
+    精度:    65.0% (范围: 65.0% ~ 65.0%)
+    召回率:  65.0% (范围: 65.0% ~ 65.0%)
+    IoU:     0.644
+    错标(FP): 平均 7.0 个
+    漏标(FN): 平均 7.0 个
+    耗时:    114.8s
+    Tokens:  9246
+    seed2.0-pro | prompt优化v4 | 00014.jpg (2次)
+    精度:    73.3% (范围: 66.7% ~ 80.0%)
+    召回率:  62.5% (范围: 58.3% ~ 66.7%)
+    IoU:     0.682
+    错标(FP): 平均 5.5 个
+    漏标(FN): 平均 9.0 个
+    耗时:    94.8s
+    Tokens:  8220
+    seed2.0-pro | prompt优化v4 | 00015.jpg (3次)
+    精度:    51.1% (范围: 50.0% ~ 53.3%)
+    召回率:  46.7% (范围: 40.0% ~ 53.3%)
+    IoU:     0.685
+    错标(FP): 平均 6.7 个
+    漏标(FN): 平均 8.0 个
+    耗时:    97.6s
+    Tokens:  8384
+    seed2.0-pro | prompt优化v4 | 00016.jpg (3次)
+    精度:    100.0% (范围: 100.0% ~ 100.0%)
+    召回率:  83.3% (范围: 83.3% ~ 83.3%)
+    IoU:     0.842
+    错标(FP): 平均 0.0 个
+    漏标(FN): 平均 1.0 个
+    耗时:    68.4s
+    Tokens:  6815
+    seed2.0-pro | prompt优化v4 | 00017.jpg (3次)
+    精度:    49.4% (范围: 35.3% ~ 57.9%)
+    召回率:  38.9% (范围: 25.0% ~ 45.8%)
+    IoU:     0.677
+    错标(FP): 平均 9.3 个
+    漏标(FN): 平均 14.7 个
+    耗时:    95.6s
+    Tokens:  8099
+    seed2.0-pro | prompt优化v4 | 00018.jpg (3次)
+    精度:    46.7% (范围: 40.0% ~ 54.5%)
+    召回率:  38.5% (范围: 30.8% ~ 46.2%)
+    IoU:     0.714
+    错标(FP): 平均 5.7 个
+    漏标(FN): 平均 8.0 个
+    耗时:    69.8s
+    Tokens:  6818
+    seed2.0-pro | prompt优化v4 | 00019.jpg (3次)
+    精度:    63.4% (范围: 56.2% ~ 75.0%)
+    召回率:  57.4% (范围: 50.0% ~ 66.7%)
+    IoU:     0.672
+    错标(FP): 平均 6.0 个
+    漏标(FN): 平均 7.7 个
+    耗时:    95.9s
+    Tokens:  7931
+    seed2.0-pro | prompt优化v4 | 00020.jpg (3次)
+    精度:    55.6% (范围: 50.0% ~ 66.7%)
+    召回率:  50.0% (范围: 50.0% ~ 50.0%)
+    IoU:     0.680
+    错标(FP): 平均 3.3 个
+    漏标(FN): 平均 4.0 个
+    耗时:    87.2s
+    Tokens:  7571
+   📁 已保存: seed2.0-pro_prompt优化v4_20260310_161024.csv
+
+📁 汇总结果已保存: model_prompt_comparison_20260310_161024.csv
+
+======================================================================
+🏆 模型对比总结
+======================================================================
+
+📊 prompt优化v4 × 00001.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            64.8%             
+  召回率           46.7%             
+  IoU           0.683             
+  错标(FP)        9.0               
+  漏标(FN)        18.7              
+  耗时(s)         108.9             
+  Tokens        8722              
+
+📊 prompt优化v4 × 00002.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            67.0%             
+  召回率           52.4%             
+  IoU           0.713             
+  错标(FP)        4.0               
+  漏标(FN)        6.7               
+  耗时(s)         72.7              
+  Tokens        7065              
+
+📊 prompt优化v4 × 00003.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            76.1%             
+  召回率           48.9%             
+  IoU           0.693             
+  错标(FP)        2.3               
+  漏标(FN)        7.7               
+  耗时(s)         69.1              
+  Tokens        6900              
+
+📊 prompt优化v4 × 00004.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            32.8%             
+  召回率           30.0%             
+  IoU           0.573             
+  错标(FP)        6.0               
+  漏标(FN)        7.0               
+  耗时(s)         68.0              
+  Tokens        6766              
+
+📊 prompt优化v4 × 00005.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            25.0%             
+  召回率           16.7%             
+  IoU           0.385             
+  错标(FP)        3.0               
+  漏标(FN)        5.0               
+  耗时(s)         78.5              
+  Tokens        7159              
+
+📊 prompt优化v4 × 00006.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            39.7%             
+  召回率           25.0%             
+  IoU           0.675             
+  错标(FP)        10.7              
+  漏标(FN)        21.0              
+  耗时(s)         95.1              
+  Tokens        8072              
+
+📊 prompt优化v4 × 00007.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            59.6%             
+  召回率           27.8%             
+  IoU           0.657             
+  错标(FP)        5.0               
+  漏标(FN)        19.5              
+  耗时(s)         83.7              
+  Tokens        7558              
+
+📊 prompt优化v4 × 00008.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            74.8%             
+  召回率           57.1%             
+  IoU           0.720             
+  错标(FP)        2.7               
+  漏标(FN)        6.0               
+  耗时(s)         74.5              
+  Tokens        6999              
+
+📊 prompt优化v4 × 00009.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            67.5%             
+  召回率           60.4%             
+  IoU           0.727             
+  错标(FP)        4.7               
+  漏标(FN)        6.3               
+  耗时(s)         79.2              
+  Tokens        7195              
+
+📊 prompt优化v4 × 00011.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            77.3%             
+  召回率           69.2%             
+  IoU           0.746             
+  错标(FP)        2.7               
+  漏标(FN)        4.0               
+  耗时(s)         81.2              
+  Tokens        7379              
+
+📊 prompt优化v4 × 00012.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            29.3%             
+  召回率           20.4%             
+  IoU           0.676             
+  错标(FP)        9.0               
+  漏标(FN)        14.3              
+  耗时(s)         84.5              
+  Tokens        7486              
+
+📊 prompt优化v4 × 00013.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            65.0%             
+  召回率           65.0%             
+  IoU           0.644             
+  错标(FP)        7.0               
+  漏标(FN)        7.0               
+  耗时(s)         114.8             
+  Tokens        9246              
+
+📊 prompt优化v4 × 00014.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            73.3%             
+  召回率           62.5%             
+  IoU           0.682             
+  错标(FP)        5.5               
+  漏标(FN)        9.0               
+  耗时(s)         94.8              
+  Tokens        8220              
+
+📊 prompt优化v4 × 00015.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            51.1%             
+  召回率           46.7%             
+  IoU           0.685             
+  错标(FP)        6.7               
+  漏标(FN)        8.0               
+  耗时(s)         97.6              
+  Tokens        8384              
+
+📊 prompt优化v4 × 00016.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            100.0%            
+  召回率           83.3%             
+  IoU           0.842             
+  错标(FP)        0.0               
+  漏标(FN)        1.0               
+  耗时(s)         68.4              
+  Tokens        6815              
+
+📊 prompt优化v4 × 00017.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            49.4%             
+  召回率           38.9%             
+  IoU           0.677             
+  错标(FP)        9.3               
+  漏标(FN)        14.7              
+  耗时(s)         95.6              
+  Tokens        8099              
+
+📊 prompt优化v4 × 00018.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            46.7%             
+  召回率           38.5%             
+  IoU           0.714             
+  错标(FP)        5.7               
+  漏标(FN)        8.0               
+  耗时(s)         69.8              
+  Tokens        6818              
+
+📊 prompt优化v4 × 00019.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            63.4%             
+  召回率           57.4%             
+  IoU           0.672             
+  错标(FP)        6.0               
+  漏标(FN)        7.7               
+  耗时(s)         95.9              
+  Tokens        7931              
+
+📊 prompt优化v4 × 00020.jpg
+------------------------------------------------------------
+  指标            seed2.0-pro       
+  --------------------------------
+  精度            55.6%             
+  召回率           50.0%             
+  IoU           0.680             
+  错标(FP)        3.3               
+  漏标(FN)        4.0               
+  耗时(s)         87.2              
+  Tokens        7571              
+
+======================================================================
+✅ 测试完成! 共 53/120 次成功
+======================================================================
