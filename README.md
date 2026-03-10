@@ -18,7 +18,8 @@ VLM-parking-labeling-multiPics/
 │   ├── seed20_runner.py        #   Doubao Seed 2.0 Pro Runner
 │   └── qwen_runner.py          #   Qwen-VL 系列 Runner（含 Qwen3）
 ├── prompts/                    # 提示词文件
-│   ├── prompt优化v3.md          #   针对停车位编号优化的提示词（最新）
+│   ├── prompt优化v4.md          #   最新：结构化边界框检测专用提示词
+│   ├── prompt优化v3.md          #   针对停车位编号优化的提示词
 │   ├── prompt优化.md           #   优化后的提示词
 │   └── prompt原始.md           #   原始提示词
 ├── data/
@@ -89,6 +90,7 @@ python3 test_prompt_comparison.py
 | `--runs` | 每个组合的测试次数 | `5` |
 | `--max-concurrent` | 最大并发线程数 | `5` |
 | `--images` | 指定测试图片文件名 | 全部图片 |
+| `--use-cache` | 使用本地 raw 存档解析代替在线 API 请求 | 否 |
 | `--ark-base-url` | Ark API 地址 | `https://ark.cn-beijing.volces.com/api/v3` |
 | `--seed18-api-key` | Seed 1.8 API Key | 从环境变量读取 |
 | `--seed18-ep` | Seed 1.8 Endpoint | 从环境变量读取 |
@@ -184,6 +186,11 @@ python3 compare.py
 `test_prompt_comparison.py` 的 `adjust_bboxes` 函数已做等比例映射修正，避免在非正方形图片上出现标注框漂移问题。
 
 ## 更新日志
+
+- **2026-03-10**
+  - **核心修复**：修复了 Qwen 模型因复杂归一化策略（独立比例/长边/短边等）引发的 BBox 坐标偏移和错位 Bug。
+  - **断点重算功能**：新增 `--use-cache` 离线执行参数，可利用本地暂存的 `raw` 原始返回结构跳过 API 在线调用，零消耗重载并生成表格与画图。
+  - **基准测试与报告**：引入异常过滤机制（跳过极其低效运行），新增 Qwen3.5-Plus 模型评估支持，并通过脚本自动化聚合生成 Markdown 对比报表（见 `docs/4models_full_test_report_20260310.md`）。
 
 - **2026-03-07**
   - 新增 Qwen-VL-Max、Qwen3-VL 模型支持（`runners/qwen_runner.py`）
